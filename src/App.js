@@ -4,11 +4,15 @@ import React, {Component} from 'react';
 import {
   Button
 } from 'react-native'
-
+    
 export default class App extends Component {
+  state = {
+    time: 0,
+  };
 
   componentDidMount() {
-    this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+    this.interval = setInterval(() => this.setState(prevState => { return {time: prevState.time + 1 } }), 1000);
+    //this.interval = setInterval(() => this.setState(prevState => { time: date.getTime() }), 1000);
   }
 
   componentWillUnmount() {
@@ -18,6 +22,10 @@ export default class App extends Component {
   render() {
     return (
       <div className="App">
+        <Button
+          title={this.state.time}
+          color="#841584"
+        />
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <p>
