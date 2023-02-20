@@ -4,6 +4,7 @@ import React, {Component} from 'react';
 import {
   Button
 } from 'react-native'
+import Notifications from 'react-native-notifications'
     
 export default class App extends Component {
   state = {
@@ -19,7 +20,23 @@ export default class App extends Component {
     clearInterval(this.interval);
   }
 
+  sendNotification(item, days) {
+    Notifications.postLocalNotification({
+      body: item + "is about to go bad in " + days + "days!",
+      title: "StoreSavvy Alert",
+      // sound: "chime.aiff",
+      silent: false,
+      // category: "SOME_CATEGORY",
+      // userInfo: { },
+      // fireDate: new Date(),
+    });
+  }
+
   render() {
+    if (this.state.time > 1 && this.state.time % 10 === 0){
+      alert("Apple is about to expire in 3 days!");
+      //this.sendNotification("Apple", 3);
+    }
     return (
       <div className="App">
         <Button
